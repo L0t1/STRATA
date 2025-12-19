@@ -47,8 +47,8 @@ router.patch('/:id', requireRole('staff'), async (req, res) => {
   if (assigned_to && !status) finalStatus = 'in_progress';
 
   try {
-    const fields = [];
-    const params = [];
+    const fields: string[] = [];
+    const params: any[] = [];
     let idx = 1;
 
     if (assigned_to !== undefined) { fields.push(`assigned_to = $${idx++}`); params.push(assigned_to); }

@@ -31,7 +31,7 @@ router.post('/', requireRole('manager'), async (req, res) => {
        const locs = await pool.query('SELECT l.id, i.sku, i.quantity FROM location l JOIN inventory i ON l.id = i.location_id WHERE l.warehouse_id = $1 AND l.zone = $2', [warehouse_id, zone]);
        if (locs.rows.length === 0) return res.status(404).json({ error: 'No locations with inventory found in this zone' });
        
-       const results = [];
+       const results: any[] = [];
        for (const loc of locs.rows) {
          const { rows } = await pool.query(
            'INSERT INTO cycle_counts (location_id, sku, expected_quantity, status) VALUES ($1, $2, $3, $4) RETURNING *',
