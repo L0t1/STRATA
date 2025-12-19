@@ -6,6 +6,7 @@ services:
     rootDir: backend
     buildCommand: npm install && npm run build
     startCommand: npm start
+    postDeployCommand: npm run seed:prod
     envVars:
       - key: NODE_ENV
         value: production

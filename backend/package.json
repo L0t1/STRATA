@@ -8,7 +8,8 @@
     "dev": "nodemon src/index.ts",
     "test": "jest --runInBand",
     "build": "tsc",
-    "seed": "ts-node src/seed.ts"
+    "seed": "ts-node src/seed.ts",
+    "seed:prod": "node dist/seed.js"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -42,6 +43,7 @@
     "@types/json2csv": "^5.0.7",
     "@types/multer": "^2.0.0",
     "@types/node": "^20.11.30",
+    "@types/pg": "^8.11.1",
     "@types/supertest": "^6.0.3",
     "@types/testing-library__react": "^10.0.1",
     "jest": "^30.2.0",
