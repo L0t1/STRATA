@@ -1,4 +1,5 @@
 
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -33,7 +34,7 @@ import { createClient } from 'redis';
 import { redisConfig } from './redisConfig';
 import { seed as runSeed } from './seed';
 
-dotenv.config();
+
 
 const app = express();
 
@@ -70,6 +71,10 @@ app.get('/api/admin/seed', async (req, res) => {
   } catch (err: any) {
     res.status(500).json({ error: 'Seeding failed', details: err.message });
   }
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/api/health');
 });
 
 app.get('/api/health', (_req, res) => {
