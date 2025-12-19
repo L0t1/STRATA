@@ -1,7 +1,7 @@
 import pool from './db';
 import bcrypt from 'bcrypt';
 
-async function seed() {
+export async function seed() {
   console.log('--- Starting STRATA High-Fidelity Seeding ---');
   console.log('Connecting to database...');
   const client = await pool.connect();

@@ -28,13 +28,28 @@ import locationsRouter from './modules/locations';
 import dashboardRouter from './modules/dashboard';
 import analyticsRouter from './modules/analytics';
 
+import RedisStore from 'connect-redis';
+import { createClient } from 'redis';
+import { redisConfig } from './redisConfig';
+import { seed as runSeed } from './seed';
+
 dotenv.config();
 
-
 const app = express();
+
+// Session Setup with Redis
+const redisClient = createClient(typeof redisConfig === 'string' ? { url: redisConfig } : redisConfig);
+redisClient.connect().catch(console.error);
+
+const store = new RedisStore({
+  client: redisClient,
+  prefix: 'iwms-sess:',
+});
+
 app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(session({
+  store: store,
   secret: (process.env.SESSION_SECRET || 'test_session_secret') as string,
   resave: false,
   saveUninitialized: false,
@@ -42,9 +57,21 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 if (process.env.NODE_ENV !== 'test') {
   app.use(apiLimiter);
 }
+
+// Manual Seed Trigger (Temporary for setup)
+app.get('/api/admin/seed', async (req, res) => {
+  try {
+    await runSeed();
+    res.json({ message: 'Seeding successful! You can now login.' });
+  } catch (err: any) {
+    res.status(500).json({ error: 'Seeding failed', details: err.message });
+  }
+});
+
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'STRATA backend running' });
 });
