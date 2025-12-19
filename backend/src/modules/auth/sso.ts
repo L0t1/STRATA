@@ -6,7 +6,9 @@ import jwt from 'jsonwebtoken';
 
 const router = Router();
 
-if (process.env.NODE_ENV !== 'test') {
+const isSSOEnabled = !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
+
+if (isSSOEnabled && process.env.NODE_ENV !== 'test') {
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
@@ -40,12 +42,18 @@ if (process.env.NODE_ENV !== 'test') {
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj as any));
 
-router.get('/redirect', passport.authenticate('google', {
+router.get('/redirect', (req, res, next) => {
+  if (!isSSOEnabled) return res.status(501).json({ error: 'SSO (Google) is not configured for this environment.' });
+  next();
+}, passport.authenticate('google', {
   scope: ['profile', 'email'],
   session: false,
 }));
 
-router.get('/callback', passport.authenticate('google', {
+router.get('/callback', (req, res, next) => {
+  if (!isSSOEnabled) return res.status(501).json({ error: 'SSO (Google) is not configured for this environment.' });
+  next();
+}, passport.authenticate('google', {
   failureRedirect: '/login?error=sso_failed',
   session: false,
 }), (req: any, res) => {
