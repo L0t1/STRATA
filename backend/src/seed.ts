@@ -305,8 +305,15 @@ export async function seed() {
     console.error('❌ Seeding failed at critical junction:', err);
   } finally {
     client.release();
-    process.exit();
   }
 }
 
-seed();
+if (require.main === module) {
+  seed().then(() => {
+    console.log('Seeding complete.');
+    process.exit(0);
+  }).catch(err => {
+    console.error('Seeding fatal error:', err);
+    process.exit(1);
+  });
+}

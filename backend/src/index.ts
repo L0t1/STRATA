@@ -39,8 +39,22 @@ import { seed as runSeed } from './seed';
 const app = express();
 
 // Session Setup with Redis
-const redisClient = createClient(typeof redisConfig === 'string' ? { url: redisConfig } : redisConfig);
-redisClient.connect().catch(console.error);
+const redisClient = createClient(
+  typeof redisConfig === 'string'
+    ? { url: redisConfig }
+    : {
+        socket: {
+          host: redisConfig.host,
+          port: redisConfig.port,
+          tls: !!redisConfig.tls,
+        },
+        password: redisConfig.password,
+        username: redisConfig.username,
+      }
+);
+redisClient.connect().catch((err) => {
+  console.error('❌ Redis Connection Error:', err.message);
+});
 
 const store = new RedisStore({
   client: redisClient,

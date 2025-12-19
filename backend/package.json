@@ -22,20 +22,20 @@
     "@types/passport-google-oauth20": "^2.0.17",
     "bcrypt": "^5.1.1",
     "bullmq": "^5.66.1",
+    "connect-redis": "^7.1.1",
     "cors": "^2.8.5",
     "csv-parse": "^6.1.0",
     "dotenv": "^16.6.1",
     "express": "^4.22.1",
     "express-rate-limit": "^8.2.1",
     "express-session": "^1.18.2",
+    "json2csv": "^5.0.3",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^8.11.1",
-    "redis": "^4.6.7",
-    "json2csv": "^5.0.3",
-    "connect-redis": "^7.1.1"
+    "redis": "^4.6.7"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
