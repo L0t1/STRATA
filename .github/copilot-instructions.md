@@ -1,0 +1,16 @@
+- [x] Clarify Project Requirements
+  - SaaS Inventory & Warehouse Management System (IWMS) using Node.js backend, React frontend, PostgreSQL, Redis, Docker, based on PRD.
+- [x] Scaffold the Project
+  - Project structure created: backend (Node.js/Express), frontend (React/TypeScript), docker-compose, database, cache.
+- [ ] Customize the Project
+  - Next: Implement core features and modules as per PRD.
+- [ ] Install Required Extensions
+  - No extensions specified.
+- [ ] Compile the Project
+  - Next: Install dependencies and build backend/frontend.
+- [ ] Create and Run Task
+  - Next: Add tasks for development and production.
+- [ ] Launch the Project
+  - Next: Provide instructions for running locally and in production.
+- [ ] Ensure Documentation is Complete
+  - README.md and PRD are present. Update as features are added.
