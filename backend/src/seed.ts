@@ -155,6 +155,21 @@ export async function seed() {
       CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);
       CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status);
       CREATE INDEX IF NOT EXISTS idx_tasks_assigned_to ON tasks(assigned_to);
+
+      -- Cycle Counts Table
+      CREATE TABLE IF NOT EXISTS cycle_counts (
+          id SERIAL PRIMARY KEY,
+          location_id INT REFERENCES location(id) ON DELETE CASCADE,
+          sku VARCHAR(64) NOT NULL,
+          expected_quantity INT NOT NULL,
+          actual_quantity INT,
+          difference INT,
+          status VARCHAR(32) DEFAULT 'pending', -- pending, completed
+          counted_by INT REFERENCES users(id),
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          completed_at TIMESTAMP
+      );
+      CREATE INDEX IF NOT EXISTS idx_cycle_counts_status ON cycle_counts(status);
     `);
 
     // 1. Reset Ecosystem

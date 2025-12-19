@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 const getRedisConfig = () => {
   if (process.env.REDIS_URL) {
     try {
