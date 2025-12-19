@@ -15,10 +15,13 @@ Follow these steps to deploy your Inventory & Warehouse Management System for fr
 4. From the Dashboard, copy the **Connection String** (it starts with `postgres://...`).
 5. **Keep this URL handy.**
 
-## Step 2: Redis (Upstash)
-1. Sign up at [Upstash.com](https://upstash.com).
-2. Create a new **Redis** database.
-3. Choose the region closest to you.
+## Step 2: Set up Upstash (Redis)
+- Go to [Upstash Console](https://console.upstash.com/).
+- Create a new **Redis** database.
+- **IMPORTANT**: On your database dashboard, click the **TCP** tab (not the REST tab).
+- Look for the **Node.js** connection snippet or the **Connection String**.
+- Your URL should look like: `rediss://default:yourpassword@your-host.upstash.io:6379`
+- Copy this string.
 4. From the Dashboard, copy the **Redis URL** (under the "Connect" section).
 5. **Keep this URL handy.**
 

@@ -24,4 +24,6 @@ const getRedisConfig = () => {
   };
 };
 
-export const redisConfig = getRedisConfig();
+const config = getRedisConfig();
+console.log(`📡 Redis connecting to: ${typeof config === 'string' ? 'URL' : config.host}`);
+export const redisConfig = config;
