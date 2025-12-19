@@ -3,10 +3,12 @@ import bcrypt from 'bcrypt';
 
 async function seed() {
   console.log('--- Starting STRATA High-Fidelity Seeding ---');
+  console.log('Connecting to database...');
   const client = await pool.connect();
+  console.log('Connected.');
 
   try {
-    await client.query('BEGIN');
+    await client.query('BEGIN');  
 
     // 1. Reset Ecosystem
     console.log('♻️ Resetting environment...');
@@ -134,6 +136,7 @@ async function seed() {
     `);
 
     await client.query('COMMIT');
+    console.log('✅ COMMIT SUCCESSFUL.');
     console.log('✨ STRATA Ecosystem Seeded with Absolute Relational Integrity.');
   } catch (err) {
     await client.query('ROLLBACK');
